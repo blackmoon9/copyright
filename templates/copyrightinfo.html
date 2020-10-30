@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for l in copyrightinfo %}
+        {{ l.name}}
+        {% if l.chain is None %}
+            0
+         {% else %}
+            {{ l.chain.name }}
+        {% endif %}
+        {{ l.movies_info.name }}
+        {{ l.right.name }}
+        {{ l.oder.pk }}
+        {{ l.star_time }}
+        {{ l.end_time }}
+        {{ l.warning }}
+        {{ l.warning_time }}
+        {{ l.remark }}
+
+
+    {% endfor %}
+</body>
+</html>

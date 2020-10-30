@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    li{
+        list-style: none;
+    }
+</style>
+<body>
+
+    <form  action="" id="allform" method="POST">
+        {% csrf_token %}
+        <span>电影名</span>
+		<div id="invite">
+			<input type="text" name="man" id="mans">
+		</div>
+		<input type="button" value="添加其他名" onclick="add()">
+        <br>
+        <label>电影介绍
+            <textarea name="indrudce"></textarea>
+        </label>
+        地区：
+        <select id="are" name="are">
+            {% for y in area %}
+                地区：<option value="{{ y.pk }}">{{ y.areaname }}</option>
+            {% endfor %}
+        </select>
+        版本：
+         <select id="pro">
+            {% for c in version %}
+                <option value="{{ c.pk }}">{{ c.versionname }}</option>
+            {% endfor %}
+        </select>
+        语言：
+        <select id="pro">
+            {% for b in language %}
+                <option value="{{ b.pk }}">{{ b.language }}</option>
+            {% endfor %}
+        </select>
+        字幕：
+        <select id="pro" name="language">
+            {% for k in language %}
+                <option value="{{ k.pk }}">{{ k.language }}</option>
+            {% endfor %}
+        </select>
+
+        <label>时长：
+            <input type="text" name="title" />
+        </label>
+
+        <input type="button" value="完成" onclick="sub()">
+    </form>
+</body>
+<script src="/static/jquery.min.js"></script>
+<script>
+    function cheack() {
+        var obj=document.getElementById('are');
+        var items=document.getElementById("are").options;//获取baiselect的所有option
+        var index=obj.selectedIndex; //序号du，取zhi当前选中选dao项的序号
+        var val = obj.options[index].text;
+        alert(val)
+    }
+    function add(){
+            var li1 = document.getElementById("li1");
+    		//创建li
+    		var lis = document.createElement("li");
+    		//创建文本
+    		var texts =document.createElement('input');
+    		texts.setAttribute('type', 'text');//输入框的类型
+    		texts.setAttribute('name', "man");//输入框的名字
+    		//把文本添加到li下面 appendChild
+    		lis.appendChild(texts);
+    		//获取到div
+    		var invite = document.getElementById("invite");
+    		var tt=document.getElementsByName("man");
+    		alert(tt);
+    		if (tt == null){
+    		    alert('请输入内容')
+            } else{
+    		    invite.insertBefore(lis,li1);
+            }
+
+		}
+		function sub(){
+			var inp = document.getElementsByName("man");
+			var inputs = new Array();
+			var list="";
+			for(var i=0; i<inp.length;i++){
+			//	alert(inp[i].value);				//获得输入框的值
+				inputs[i] = inp[i].value;
+			}
+            b=inputs.join('/');
+			var formData=$("#allform").serialize();
+			$.ajax({
+                url:"{% url 'addmoviesinfo' %}",
+                type:'POST',
+                data:formData+"&b="+b,
+                dataType:"json",
+                success:function () {
+                    alert(inputs)
+                }
+
+            })
+
+
+            //将输入框的值赋予inputs数组中
+		}
+
+
+</script>
+<script>
+        $.ajaxSetup({
+            data:{csrfmiddlewaretoken:'{{ csrf_token }}'}
+        })
+     </script>
+</html>

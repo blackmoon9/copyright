@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="col-md-11 col-md-offset-1">
+         <form action="{% url 'search' %}" method="get" class="form-horizontal">
+             <label style="width: 100%;font-size: 24px;text-align: center;padding-right: 5%">请输入搜索的版权编号</label>
+         <div style="width: 100%;text-align: center">
+             <input class="form-control pull-left" name="search" type="text" style="width: 80%">
+             <button type="submit" class="btn btn-info pull-left" style="width: 15%;margin-left: 5%">搜索</button>
+         </div>
+
+         <div class="clearfix"></div>
+          <table class="table table-striped" style=" box-shadow: 0 0 14px -6px rgba(0,0,0,.4);border: 1px solid #d1cdcd;margin-top: 30px">
+
+
+           {% for p in serach %}
+               {% if forloop.first %}
+                   <tr>
+                <th>版权编号</th>
+                <th>版权链</th>
+                <th>片名</th>
+                <th>权限名</th>
+                <th>订单编号</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>是否预警</th>
+                <th>预警时间</th>
+                <th>描述</th>
+            </tr>
+               {% endif %}
+               <tr>
+              <td>{{ p.name}}</td>
+            {% if p.chain is None %}
+                <td>0</td>
+             {% else %}
+                <td>{{ p.chain.name }}</td>
+            {% endif %}
+            <td>{{ p.movies_info.name }}</td>
+            <td>{{ p.right.name }}</td>
+            <td>{{ p.oder.pk }}</td>
+            <td>{{ p.star_time }}</td>
+            <td>{{ p.end_time }}</td>
+            <td>{{ p.warning }}</td>
+            <td>{{ p.warning_time }}</td>
+            <td>{{ p.remark }}</td>
+            {% endfor %}
+        </tr>
+        </table>
+
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
+<script src="/static/jquery.min.js">
+
+</script>
+

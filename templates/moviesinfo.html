@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<link rel="stylesheet" href="/static/bootstrap-3.3.7/css/bootstrap.min.css">
+<div class="container">
+    <h3 style="text-align: center">电影信息</h3>
+    <div class="col-md-9 col-md-offset-1">
+
+        <table class="table table-striped" style=" box-shadow: 0 0 14px -6px rgba(0,0,0,.4);border: 1px solid #d1cdcd;margin-top: 30px">
+            <tr>
+                <th>片名</th>
+                <th>介绍</th>
+                <th>配音</th>
+                <th>字幕</th>
+                <th>地区</th>
+                <th>时长</th>
+                <th>版本</th>
+            </tr>
+
+    {% for x in moviesinfolist %}
+        <tr>
+           <td>{{ x.name }}</td>
+           <td>{{ x.introduce }}</td>
+           <td>{{ x.dubbing }}</td>
+           <td>{{ x.subtitle }}</td>
+           <td>{{ x.area }}</td>
+           <td>{{ x.time }}</td>
+           <td>{{ x.version }}</td>
+        </tr>
+    {% endfor %}
+        </table>
+    </div>
+</div>
+</body>
+</html>
